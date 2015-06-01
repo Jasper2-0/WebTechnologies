@@ -1,0 +1,25 @@
+<head>
+  <title>shoutbox</title>
+</head>
+<!-- main body of the app. -- >
+<body>
+  <h1>Shout it!</h1>
+  
+  <form class="shoutform">
+    <input type="text" name="name" placeholder="name"/>
+    <input type="text" name="text" placeholder="what do you have to say?"/>
+    <button type="submit">Submit</button>
+  </form>
+<!-- with each shout from the database render the shout-data with the shout template  -->
+  
+  {{#each shouts}}
+    {{> shout}}
+  {{/each}}
+  
+  <button class="delete">Delete all</button>
+</body>
+<!--This is a template for each shout -->
+<template name="shout">
+  <h2>{{name}}</h2>
+  <p>{{text}}</p>
+</template>
