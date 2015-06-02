@@ -1,24 +1,28 @@
+<!-- THIS IS THE HTML FILE, EVERYTHING HERE RUNS ON THE CLIENT SIDE -->
+
 <head>
-  <title>shoutbox</title>
+  <title>Shoutbox</title>
 </head>
 <!-- main body of the app. -- >
 <body>
   <h1>Shout it!</h1>
   
+  <!-- <form> = html tag to make a form -->
   <form class="shoutform">
-    <input type="text" name="name" placeholder="name"/>
-    <input type="text" name="text" placeholder="what do you have to say?"/>
+    <input type="text" name="name" placeholder="Name"/>
+    <input type="text" name="text" placeholder="What do you have to say?"/>
     <button type="submit">Submit</button>
   </form>
+
 <!-- with each shout from the database render the shout-data with the shout template  -->
-  
-  {{#each shouts}}
-    {{> shout}}
+  {{#each shouts}} <!-- her we iterate over the items returned by the shouts function and display inside the block for each one -->
+    {{> shout}} <!-- So here is the shout template in the html -->
   {{/each}}
   
   <button class="delete">Delete all</button>
 </body>
-<!--This is a template for each shout -->
+
+<!--This is a template for each shout, we can use it in our html and do that on line 19 -->
 <template name="shout">
   <h2>{{name}}</h2>
   <p>{{text}}</p>

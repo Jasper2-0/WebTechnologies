@@ -1,47 +1,45 @@
-// make a new meteor collection that contains all shouts.
+//THIS IS THE JAVASCRIPT FILE
+
+// Make a new meteor collection that contains all shouts.
+
 Shouts = new Mongo.Collection("shouts");
 
 /*
-*   This part of the code runs on the client
+*   CLIENT SIDE
 */
 
 if (Meteor.isClient) {
   /*
   * This is a helper function for the 'body' template, see shoutbox.html.
   */
-  Template.body.helpers({
-	  // collect all shouts and sort them newest to oldest.
-    shouts: function () {
-      // Show newest tasks first
-      return Shouts.find({}, {sort: {createdAt: -1}});
+  Template.body.helpers({   //With a helper, we can display data inside the template
+    shouts: function () {   //So here we define a helper called 'shouts' for the template
+      return Shouts.find({}, {sort: {createdAt: -1}});  //return all the shouts we can find (and sort them)
     }
 });
- /*
- * This part handles the event of the body template.
- */
+
+// This part handles the event of the body template
+
   Template.body.events({
-	  // when the shoutform receives a submit event...
-    'submit .shoutform': function (event) {
-	  // put the value of the name input into a variable
-      var name = event.target.name.value;
-	  // put the value of the textinput into a variable
-      var text = event.target.text.value;
-      // insert a new object into the database, with name, text, and created at properties.
+    'submit .shoutform': function (event) {   // When the shoutform receives a submit event..
+      var nameField = event.target.name.value;     // Put the value of the name input into a variable
+      var textField = event.target.text.value;     // Put the value of the textinput into a variable
+
+      // Insert a new object into the database, with name, text, and created at properties.
       Shouts.insert({
-        name: name,
-        text: text,
-        createdAt: new Date() // current time
+        name: nameField,
+        text: textField,
+        createdAt: new Date()         // current time
       });
       
-      // Clear form
-      event.target.text.value = "";
+      event.target.text.value = "";   // Clear form
 
-      // Prevent default form submit
-      return false;
+      return false;                   // Prevent default form submit
     },
-	// when the user clicks the delete button, remove all shouts in the database on the server.
+
+	   // When the user clicks the delete button, remove all shouts in the database on the server.
     'click .delete': function (event) {
-      Meteor.call('removeAllShouts')
+      Meteor.call('removeAllShouts')  // Now we call a function on the server sice!!
     }
   });
   
@@ -49,19 +47,15 @@ if (Meteor.isClient) {
 }
 
 /*
-*   This part of the code runs on the server
+*   SERVER SIDE
 */
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-	// at server startup remove all previously created shouts.
+  Meteor.startup(function () {        // Code to run on server at startup
+	// At server startup remove all previously created shouts.
     return Meteor.methods({
-
       removeAllShouts: function() {
-
-		  return Shouts.remove({}); // empty out the Shouts collection
-
+		  return Shouts.remove({});       // Empty out the Shouts collection
       }
 
     });
