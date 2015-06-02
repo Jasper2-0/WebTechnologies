@@ -25,7 +25,7 @@ if (Meteor.isClient) {
       var nameField = event.target.name.value;     // Put the value of the name input into a variable
       var textField = event.target.text.value;     // Put the value of the textinput into a variable
 
-      // Insert a new object into the database, with name, text, and created at properties.
+      // Insert a new OBJECT into the database, with name, text, and created at properties.
       Shouts.insert({
         name: nameField,
         text: textField,
